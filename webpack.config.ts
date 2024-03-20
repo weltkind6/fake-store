@@ -1,12 +1,9 @@
-const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack';
 
-module.exports = (env) => {
-  // Use env.<YOUR VARIABLE> here:
-  console.log("Goal: ", env.goal); // 'local'
-  console.log("Production: ", env.production); // true
-
-  return {
+export default (env: any) => {
+  const config: webpack.Configuration = {
     mode: env.mode ?? 'development',
     entry: path.resolve(__dirname, "src", "index.ts"),
     module: {
@@ -27,7 +24,10 @@ module.exports = (env) => {
       clean: true,
     },
     plugins: [
-        new HtmlWebpackPlugin({template: path.resolve(__dirname, 'public', 'index.html')}),
+      new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
     ],
   };
+
+  return config
 };
+
