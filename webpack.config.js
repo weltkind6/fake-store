@@ -1,6 +1,5 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
 
 module.exports = (env) => {
   // Use env.<YOUR VARIABLE> here:
@@ -9,7 +8,19 @@ module.exports = (env) => {
 
   return {
     mode: env.mode ?? 'development',
-    entry: path.resolve(__dirname, "src", "index.js"),
+    entry: path.resolve(__dirname, "src", "index.ts"),
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+      ],
+    },
+    resolve: {
+      extensions: ['.tsx', '.ts', '.js'],
+    },
     output: {
       path: path.resolve(__dirname, "build"),
       filename: "[name].[contenthash].js",
