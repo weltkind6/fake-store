@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './App.module.scss';
-import Duck from '../assets/img/duck.svg'
+import Duck from '@/assets/img/duck.svg'
 import { Outlet } from 'react-router-dom';
 
 export const App = () => {

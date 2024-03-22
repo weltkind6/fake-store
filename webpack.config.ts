@@ -45,7 +45,6 @@ const getPluginsConfig = () => {
 };
 
 const getModuleConfig = () => {
-
   const webpackAssetsLoader =  {
     test: /\.(png|svg|jpg|jpeg|gif)$/i,
     type: 'asset/resource',
@@ -70,6 +69,9 @@ const getModuleConfig = () => {
 const getResolveConfig = () => {
   return {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      '@': '/src',
+    },
   };
 };
 
