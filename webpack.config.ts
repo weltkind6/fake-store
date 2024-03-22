@@ -4,6 +4,11 @@ import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// set the true/false flag to run BundleAnalyzer
+const enableBundleAnalyzer = process.env.ANALYZE_BUNDLE === 'false';
+
+
 type Mode = 'production' | 'development'
 
 interface EnvVariables {
@@ -24,13 +29,19 @@ const getOutputConfig = () => {
 };
 
 const getPluginsConfig = () => {
-  return [
+  const plugins = [
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css'
-    })
-  ];
+    }),
+  ]
+
+  if (enableBundleAnalyzer) {
+    plugins.push(new BundleAnalyzerPlugin());
+  }
+
+  return plugins
 };
 
 const getModuleConfig = () => {
