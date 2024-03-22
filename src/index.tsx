@@ -4,6 +4,9 @@ import {
     createBrowserRouter,
     RouterProvider,
   } from "react-router-dom";
+import { Shop } from './components/pages/Shop';
+import { About } from './components/pages/About';
+import { Suspense } from 'react';
 
   const router = createBrowserRouter([
     {
@@ -12,11 +15,11 @@ import {
       children: [
         {
             path: '/about',
-            element: <h1>About</h1>
+            element: <Suspense fallback={<div>Loading...</div>}><About /></Suspense>
         },
         {
             path: '/shop',
-            element: <h1>Shop</h1>
+            element: <Suspense fallback={<div>Loadind...</div>}><Shop /></Suspense>
         }
       ]
     },
