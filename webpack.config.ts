@@ -65,7 +65,8 @@ const getResolveConfig = () => {
 const getDevServerConfig = (env: EnvVariables) => {
   return {
     port: env.port ?? 3000,
-    open: true
+    open: true,
+    historyApiFallback: true
   };
 };
 
