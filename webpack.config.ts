@@ -34,6 +34,12 @@ const getPluginsConfig = () => {
 };
 
 const getModuleConfig = () => {
+
+  const webpackAssetsLoader =  {
+    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    type: 'asset/resource',
+  }
+
   return {
     rules: [
       {
@@ -45,6 +51,7 @@ const getModuleConfig = () => {
         use: 'ts-loader',
         exclude: /node_modules/,
       },
+      webpackAssetsLoader
     ],
   };
 };
