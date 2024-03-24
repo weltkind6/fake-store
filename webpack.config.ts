@@ -44,34 +44,45 @@ const getPluginsConfig = () => {
   return plugins
 };
 
-const getModuleConfig = () => {
+const getLoaders = () => {
   const webpackAssetsLoader =  {
     test: /\.(png|jpg|jpeg|gif)$/i,
     type: 'asset/resource',
   }
+  const acceleratedTsLoader = {
+    test: /\.tsx?$/,
+    use: [
+      {
+        loader: 'ts-loader',
+        options: {
+          // Change condition to disable TS check
+          transpileOnly: true
+        }
+      }
+    ]
+  }
+  const importSvgAsComponentLoader = {
+    test: /\.svg$/i,
+    issuer: /\.[jt]sx?$/,
+    resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+    use: ['@svgr/webpack'],
+  }
+  const cssIndividualFilesLoader = {
+    test: /\.s[ac]ss$/i,
+    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+  }
+  const svgLoader =  {
+    test: /\.svg$/i,
+    type: 'asset',
+    resourceQuery: /url/, // *.svg?url
+  }
 
   return {
     rules: [
-      {
-        test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.svg$/i,
-        type: 'asset',
-        resourceQuery: /url/, // *.svg?url
-      },
-      {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
-        use: ['@svgr/webpack'],
-      },
+      cssIndividualFilesLoader,
+      acceleratedTsLoader,
+      svgLoader,
+      importSvgAsComponentLoader,
       webpackAssetsLoader
     ],
   };
@@ -100,7 +111,7 @@ export default (env: EnvVariables) => {
     entry: getEntryConfig(),
     output: getOutputConfig(),
     plugins: getPluginsConfig(),
-    module: getModuleConfig(),
+    module: getLoaders(),
     resolve: getResolveConfig(),
     devtool: 'inline-source-map',
     devServer: getDevServerConfig(env)

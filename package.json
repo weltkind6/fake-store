@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "webpack --env goal=local --env development --progress",
     "prod": "webpack --env goal=local --env production --progress",
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "mobile": "",
+    "desctop": ""
   },
   "keywords": [],
   "author": "",
