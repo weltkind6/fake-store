@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // set the true/false flag to run BundleAnalyzer
@@ -35,6 +36,7 @@ const getPluginsConfig = () => {
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css'
     }),
+    new ForkTsCheckerWebpackPlugin()
   ]
 
   if (enableBundleAnalyzer) {
