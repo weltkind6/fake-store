@@ -4,18 +4,16 @@ import webpack from 'webpack';
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import ReactRefreshTypeScript from 'react-refresh-typescript';
+
+
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // set the true/false flag to run BundleAnalyzer
 const enableBundleAnalyzer = process.env.ANALYZE_BUNDLE === 'false';
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
-
-type Mode = 'production' | 'development'
-
-interface EnvVariables {
-  mode: Mode
-  port: number
-}
 
 const getEntryConfig = () => {
   return path.resolve(__dirname, "src", "index.tsx");
@@ -31,6 +29,7 @@ const getOutputConfig = () => {
 
 const getPluginsConfig = () => {
   const plugins = [
+    new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'public', 'index.html') }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',
@@ -57,6 +56,9 @@ const getLoaders = () => {
       {
         loader: 'ts-loader',
         options: {
+          getCustomTransformers: () => ({
+            before: [isDevelopment && ReactRefreshTypeScript()].filter(Boolean),
+          }),
           // Change condition to disable TS check
           transpileOnly: true
         }
@@ -99,24 +101,24 @@ const getResolveConfig = () => {
   };
 };
 
-const getDevServerConfig = (env: EnvVariables) => {
+const getDevServerConfig = () => {
   return {
-    port: env.port ?? 3000,
+    port: 3000,
     open: true,
     historyApiFallback: true
   };
 };
 
-export default (env: EnvVariables) => {
+export default () => {
   const config: webpack.Configuration = {
-    mode: env.mode ?? 'development',
+    mode: isDevelopment ? 'development' : 'production',
     entry: getEntryConfig(),
     output: getOutputConfig(),
     plugins: getPluginsConfig(),
     module: getLoaders(),
     resolve: getResolveConfig(),
     devtool: 'inline-source-map',
-    devServer: getDevServerConfig(env)
+    devServer: getDevServerConfig()
   };
 
   return config;
