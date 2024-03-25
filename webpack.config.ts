@@ -6,6 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ReactRefreshTypeScript from 'react-refresh-typescript';
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 
 
@@ -35,7 +36,8 @@ const getPluginsConfig = () => {
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[name].[contenthash:8].css'
     }),
-    new ForkTsCheckerWebpackPlugin()
+    new ForkTsCheckerWebpackPlugin(),
+    new FaviconsWebpackPlugin('public/star.ico')
   ]
 
   if (enableBundleAnalyzer) {
