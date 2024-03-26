@@ -8,7 +8,8 @@
     "prod": "webpack --env goal=local --env production --progress",
     "start": "webpack serve",
     "mobile": "",
-    "desctop": ""
+    "desctop": "",
+    "lint": "eslint --fix ."
   },
   "keywords": [],
   "author": "",
@@ -22,8 +23,12 @@
     "@types/webpack": "^5.28.5",
     "@types/webpack-bundle-analyzer": "^4.7.0",
     "@types/webpack-dev-server": "^4.7.2",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
     "@webhotelier/webpack-fast-refresh": "5.1.0",
     "css-loader": "^6.10.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
     "favicons": "^7.2.0",
     "favicons-webpack-plugin": "^6.0.1",
     "fork-ts-checker-webpack-plugin": "^9.0.2",
@@ -44,6 +49,7 @@
   },
   "dependencies": {
     "axios": "^1.6.8",
+    "eslint-plugin-import": "^2.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"

@@ -1,32 +1,25 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import webpack from 'webpack';
-import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
-import ReactRefreshTypeScript from 'react-refresh-typescript';
-import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import webpack from 'webpack'
+import type { Configuration as DevServerConfiguration } from "webpack-dev-server"
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import ReactRefreshTypeScript from 'react-refresh-typescript'
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 
-
-
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // set the true/false flag to run BundleAnalyzer
-const enableBundleAnalyzer = process.env.ANALYZE_BUNDLE === 'false';
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const enableBundleAnalyzer = process.env.ANALYZE_BUNDLE === 'false'
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
+const getEntryConfig = () => path.resolve(__dirname, "src", "index.tsx")
 
-const getEntryConfig = () => {
-  return path.resolve(__dirname, "src", "index.tsx");
-};
-
-const getOutputConfig = () => {
-  return {
-    path: path.resolve(__dirname, "build"),
-    filename: "[name].[contenthash].js",
-    clean: true,
-  };
-};
+const getOutputConfig = () => ({
+  path: path.resolve(__dirname, "build"),
+  filename: "[name].[contenthash].js",
+  clean: true,
+})
 
 const getPluginsConfig = () => {
   const plugins = [
@@ -41,11 +34,11 @@ const getPluginsConfig = () => {
   ]
 
   if (enableBundleAnalyzer) {
-    plugins.push(new BundleAnalyzerPlugin());
+    plugins.push(new BundleAnalyzerPlugin())
   }
 
   return plugins
-};
+}
 
 const getLoaders = () => {
   const webpackAssetsLoader =  {
@@ -91,25 +84,21 @@ const getLoaders = () => {
       importSvgAsComponentLoader,
       webpackAssetsLoader
     ],
-  };
-};
+  }
+}
 
-const getResolveConfig = () => {
-  return {
-    extensions: ['.tsx', '.ts', '.js'],
-    alias: {
-      '@': '/src',
-    },
-  };
-};
+const getResolveConfig = () => ({
+  extensions: ['.tsx', '.ts', '.js'],
+  alias: {
+    '@': '/src',
+  },
+})
 
-const getDevServerConfig = () => {
-  return {
-    port: 3000,
-    open: true,
-    historyApiFallback: true
-  };
-};
+const getDevServerConfig = () => ({
+  port: 3000,
+  open: true,
+  historyApiFallback: true
+})
 
 export default () => {
   const config: webpack.Configuration = {
@@ -121,7 +110,7 @@ export default () => {
     resolve: getResolveConfig(),
     devtool: 'inline-source-map',
     devServer: getDevServerConfig()
-  };
+  }
 
-  return config;
-};
+  return config
+}
