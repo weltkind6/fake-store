@@ -11,9 +11,7 @@
       "esModuleInterop": true,
       "baseUrl": "./",          
       "paths": {
-        "@/*": [
-          "*"
-        ]
+        "@/*": ["src/*"]
       },
     },
     "ts-node": {

@@ -6,7 +6,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import ReactRefreshTypeScript from 'react-refresh-typescript';
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
 
 
