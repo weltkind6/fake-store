@@ -1,9 +1,9 @@
-import React from 'react';
+import './styles.css'
 
 const Shop = () => {
     return (
-        <div>
-            
+        <div className='shop-wrapper'>
+            <h1>SHOP FAKE</h1>
         </div>
     );
 };

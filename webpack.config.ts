@@ -74,7 +74,7 @@ const getLoaders = () => {
     use: ['@svgr/webpack'],
   }
   const cssIndividualFilesLoader = {
-    test: /\.s[ac]ss$/i,
+    test: /\.(s[ac]ss|css)$/i,
     use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
   }
   const svgLoader =  {
